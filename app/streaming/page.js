@@ -1,6 +1,4 @@
-import { Suspense } from "react";
-import { SlowProducts, SlowReviews, SlowRecommendations } from "@/components/streaming/SlowComponent";
-import { ProductsSkeleton, ReviewsSkeleton, RecommendationsSkeleton } from "@/components/streaming/LoadingSkeleton";
+import Link from "next/link";
 import Accordion from "@/components/Accordion";
 
 export default function StreamingPage() {
@@ -96,34 +94,17 @@ export default function StreamingPage() {
       </Accordion>
 
       <div className="info-box">
-        <strong>Watch the demo below!</strong> Each section has a different delay (2s, 3s, 10s).
+        <strong>Watch the demo!</strong> Each section has a different delay (2s, 3s, 10s).
         Content appears progressively as each section loads.
       </div>
 
-      <h2 style={{ marginTop: '2rem', marginBottom: '1rem' }}>Live Streaming Demo</h2>
-      <p style={{ color: 'var(--text-muted)', marginBottom: '1.5rem' }}>
-        Each section is wrapped in a Suspense boundary. Watch them load one by one:
-      </p>
-
-      <div className="demo-box" style={{ marginBottom: '1.5rem' }}>
-        <h3 className="demo-box-title">Products (2 second delay)</h3>
-        <Suspense fallback={<ProductsSkeleton />}>
-          <SlowProducts delayMs={2000} />
-        </Suspense>
-      </div>
-
-      <div className="demo-box" style={{ marginBottom: '1.5rem' }}>
-        <h3 className="demo-box-title">Reviews (3 second delay)</h3>
-        <Suspense fallback={<ReviewsSkeleton />}>
-          <SlowReviews delayMs={3000} />
-        </Suspense>
-      </div>
-
-      <div className="demo-box" style={{ marginBottom: '1.5rem' }}>
-        <h3 className="demo-box-title">Recommendations (10 second delay)</h3>
-        <Suspense fallback={<RecommendationsSkeleton />}>
-          <SlowRecommendations delayMs={10000} />
-        </Suspense>
+      <div style={{ marginTop: "2rem", marginBottom: "2rem", textAlign: "center" }}>
+        <Link href="/streaming/demo" className="btn">
+          View Live Demo →
+        </Link>
+        <p style={{ color: "var(--text-muted)", fontSize: "0.875rem", marginTop: "0.75rem" }}>
+          Open in a clean page for DevTools observation
+        </p>
       </div>
 
       <Accordion title="The Code Pattern">

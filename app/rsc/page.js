@@ -1,5 +1,4 @@
-import ServerOnlyDemo from '@/components/rsc/ServerComponent';
-import ClientOnlyDemo from '@/components/rsc/ClientComponent';
+import Link from "next/link";
 import Accordion from '@/components/Accordion';
 
 export default function RSCPage() {
@@ -98,14 +97,13 @@ export default function RSCPage() {
         </table>
       </Accordion>
 
-      <h2 style={{ marginTop: '2rem', marginBottom: '1rem' }}>Live Comparison</h2>
-      <p style={{ color: 'var(--text-muted)', marginBottom: '1.5rem' }}>
-        Server Component data loaded on the server. Client Component is interactive:
-      </p>
-
-      <div className="demo-container">
-        <ServerOnlyDemo />
-        <ClientOnlyDemo />
+      <div style={{ marginTop: "2rem", marginBottom: "2rem", textAlign: "center" }}>
+        <Link href="/rsc/demo" className="btn">
+          View Live Demo →
+        </Link>
+        <p style={{ color: "var(--text-muted)", fontSize: "0.875rem", marginTop: "0.75rem" }}>
+          Open in a clean page for DevTools observation
+        </p>
       </div>
 
       <Accordion title="The Mental Model">

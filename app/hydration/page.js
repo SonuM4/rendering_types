@@ -1,4 +1,4 @@
-import HydrationDemo from "@/components/HydrationDemo";
+import Link from "next/link";
 import Accordion from "@/components/Accordion";
 
 export default function HydrationPage() {
@@ -83,7 +83,14 @@ export default function HydrationPage() {
         </div>
       </Accordion>
 
-      <HydrationDemo />
+      <div style={{ marginTop: "2rem", marginBottom: "2rem", textAlign: "center" }}>
+        <Link href="/hydration/demo" className="btn">
+          View Live Demo →
+        </Link>
+        <p style={{ color: "var(--text-muted)", fontSize: "0.875rem", marginTop: "0.75rem" }}>
+          Open in a clean page for DevTools observation
+        </p>
+      </div>
 
       <Accordion title="Before & After Hydration">
         <div className="demo-container">

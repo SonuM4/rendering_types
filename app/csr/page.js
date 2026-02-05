@@ -1,4 +1,4 @@
-import CSRDemo from "@/components/CSRDemo";
+import Link from "next/link";
 import Accordion from "@/components/Accordion";
 
 export default function CSRPage() {
@@ -97,10 +97,14 @@ export default function CSRPage() {
                 <strong>Try this:</strong> View the page source (Ctrl+U or Cmd+U). You'll see the loading spinner markup, but <em>not</em> the actual user data - because it's fetched by JavaScript after the page loads!
             </div>
 
-            <h2 style={{ marginTop: "2rem", marginBottom: "1rem" }}>Live Demo</h2>
-            <p style={{ color: "var(--text-muted)", marginBottom: "1rem" }}>Watch the loading state below. The data is being fetched by your browser right now:</p>
-
-            <CSRDemo />
+            <div style={{ marginTop: "2rem", marginBottom: "2rem", textAlign: "center" }}>
+                <Link href="/csr/demo" className="btn">
+                    View Live Demo →
+                </Link>
+                <p style={{ color: "var(--text-muted)", fontSize: "0.875rem", marginTop: "0.75rem" }}>
+                    Open in a clean page for DevTools observation
+                </p>
+            </div>
 
             <Accordion title="The Code Pattern" defaultOpen={false}>
                 <p style={{ marginBottom: "1rem" }}>

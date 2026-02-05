@@ -322,6 +322,105 @@ a:hover {
 .diagram-arrow {
   font-size: 1.5rem;
   color: var(--accent);
+  text-align: center;
+  width: 100%;
+}
+
+/* Expandable Flow Steps */
+.flow-step-wrapper {
+  width: 100%;
+}
+
+.diagram-step-expandable {
+  cursor: pointer;
+  position: relative;
+  user-select: none;
+  padding-right: 2.5rem;
+}
+
+.diagram-step-expandable:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.diagram-step-expandable:active {
+  transform: translateY(0);
+}
+
+.diagram-step-title {
+  flex: 1;
+  font-size: 0.9rem;
+  margin-top: 0.25rem;
+}
+
+.diagram-step-expand-icon {
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--accent-secondary);
+  color: var(--accent-light);
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.diagram-step-expandable.expanded .diagram-step-expand-icon {
+  transform: translateY(-50%) rotate(180deg);
+  background: var(--accent);
+  color: white;
+}
+
+.diagram-step-expandable.expanded {
+  border-color: var(--accent);
+  background: var(--accent-glow);
+}
+
+.diagram-step-details {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  width: 100%;
+}
+
+.diagram-step-details.open {
+  max-height: 300px;
+}
+
+.diagram-step-details-content {
+  padding: 0.75rem 1rem;
+  background: var(--accent-secondary);
+  border-radius: 0 0 10px 10px;
+  border: 1px solid var(--border-color);
+  border-top: none;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-top: -5px;
+}
+
+.diagram-step-details-content p {
+  margin-bottom: 0.5rem;
+  color: var(--foreground);
+}
+
+.diagram-step-technical {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  padding-top: 0.5rem;
+  border-top: 1px dashed var(--border-color);
+  margin-top: 0.5rem;
+}
+
+.flow-hint {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-align: center;
+  margin-top: 1rem;
+  font-style: italic;
 }
 
 /* Info Box */
@@ -369,6 +468,18 @@ a:hover {
 .feature-card p {
   color: var(--text-muted);
   font-size: 0.9rem;
+}
+
+.demo-what-to-watch {
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px dashed var(--border-color);
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.demo-what-to-watch strong {
+  color: var(--accent-light);
 }
 
 /* Comparison Table */

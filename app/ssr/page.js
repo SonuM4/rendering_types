@@ -1,22 +1,7 @@
+import Link from "next/link";
 import Accordion from '@/components/Accordion';
 
-async function getServerData() {
-  await new Promise(resolve => setTimeout(resolve, 100));
-
-  return {
-    products: [
-      { id: 1, name: 'Laptop Pro', price: 1299, inStock: true },
-      { id: 2, name: 'Wireless Mouse', price: 49, inStock: true },
-      { id: 3, name: 'Mechanical Keyboard', price: 159, inStock: false },
-      { id: 4, name: 'USB-C Hub', price: 79, inStock: true },
-    ],
-    generatedAt: new Date().toISOString(),
-    serverInfo: `Node.js ${process.version}`
-  };
-}
-
-export default async function SSRPage() {
-  const data = await getServerData();
+export default function SSRPage() {
 
   return (
     <div className="page">
@@ -101,41 +86,13 @@ export default async function SSRPage() {
         all the product data right there in the HTML!
       </div>
 
-      <h2 style={{ marginTop: '2rem', marginBottom: '1rem' }}>Live Demo</h2>
-      <p style={{ color: 'var(--text-muted)', marginBottom: '1rem' }}>
-        This data was fetched on the server. No loading state - it's already here:
-      </p>
-
-      <div className="demo-box">
-        <h3 className="demo-box-title">Product Data (Rendered on Server)</h3>
-        <p style={{ color: 'var(--text-muted)', marginBottom: '0.5rem', fontSize: '0.85rem' }}>
-          Generated at: {data.generatedAt}
+      <div style={{ marginTop: "2rem", marginBottom: "2rem", textAlign: "center" }}>
+        <Link href="/ssr/demo" className="btn">
+          View Live Demo →
+        </Link>
+        <p style={{ color: "var(--text-muted)", fontSize: "0.875rem", marginTop: "0.75rem" }}>
+          Open in a clean page for DevTools observation
         </p>
-        <p style={{ color: 'var(--text-muted)', marginBottom: '1rem', fontSize: '0.85rem' }}>
-          Server: {data.serverInfo}
-        </p>
-        <table className="comparison-table">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Product</th>
-              <th>Price</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            {data.products.map(product => (
-              <tr key={product.id}>
-                <td>{product.id}</td>
-                <td>{product.name}</td>
-                <td>${product.price}</td>
-                <td style={{ color: product.inStock ? 'var(--success)' : 'var(--error)' }}>
-                  {product.inStock ? 'In Stock' : 'Out of Stock'}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
       </div>
 
       <Accordion title="The Code Pattern">

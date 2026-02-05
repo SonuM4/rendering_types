@@ -1,11 +1,4 @@
-import DateTimeBroken from '@/components/hydration-issues/DateTimeBroken';
-import DateTimeFixed from '@/components/hydration-issues/DateTimeFixed';
-import WindowBroken from '@/components/hydration-issues/WindowBroken';
-import WindowFixed from '@/components/hydration-issues/WindowFixed';
-import RandomBroken from '@/components/hydration-issues/RandomBroken';
-import RandomFixed from '@/components/hydration-issues/RandomFixed';
-import LocalStorageBroken from '@/components/hydration-issues/LocalStorageBroken';
-import LocalStorageFixed from '@/components/hydration-issues/LocalStorageFixed';
+import Link from "next/link";
 
 export default function HydrationIssuesPage() {
   return (
@@ -24,8 +17,17 @@ export default function HydrationIssuesPage() {
         </p>
         <div className="info-box" style={{ marginTop: '1rem' }}>
           <strong>Open DevTools Console</strong> to see hydration warnings from the
-          "broken" examples below!
+          "broken" examples in the live demo!
         </div>
+      </div>
+
+      <div style={{ marginTop: "2rem", marginBottom: "2rem", textAlign: "center" }}>
+        <Link href="/hydration-issues/demo" className="btn">
+          View Live Demo →
+        </Link>
+        <p style={{ color: "var(--text-muted)", fontSize: "0.875rem", marginTop: "0.75rem" }}>
+          Open in a clean page for DevTools observation
+        </p>
       </div>
 
       {/* Issue 1: Date/Time Mismatch */}
@@ -38,9 +40,8 @@ export default function HydrationIssuesPage() {
         <div className="demo-container">
           <div className="demo-box broken">
             <div className="demo-box-title">
-              ❌ Broken Example
+              ❌ Broken Pattern
             </div>
-            <DateTimeBroken />
             <div className="code-block" style={{ marginTop: '1rem' }}>
               <code>
 {`// BAD: Date created during render
@@ -57,9 +58,8 @@ function Component() {
 
           <div className="demo-box fixed">
             <div className="demo-box-title">
-              ✅ Fixed Example
+              ✅ Fixed Pattern
             </div>
-            <DateTimeFixed />
             <div className="code-block" style={{ marginTop: '1rem' }}>
               <code>
 {`// GOOD: Use useEffect for client-only values
@@ -91,9 +91,8 @@ function Component() {
         <div className="demo-container">
           <div className="demo-box broken">
             <div className="demo-box-title">
-              ❌ Broken Example
+              ❌ Broken Pattern
             </div>
-            <WindowBroken />
             <div className="code-block" style={{ marginTop: '1rem' }}>
               <code>
 {`// BAD: Accessing window during render
@@ -111,9 +110,8 @@ function Component() {
 
           <div className="demo-box fixed">
             <div className="demo-box-title">
-              ✅ Fixed Example
+              ✅ Fixed Pattern
             </div>
-            <WindowFixed />
             <div className="code-block" style={{ marginTop: '1rem' }}>
               <code>
 {`// GOOD: Check for window or use useEffect
@@ -132,7 +130,7 @@ function Component() {
               </code>
             </div>
             <p style={{ color: '#888', fontSize: '0.85rem', marginTop: '0.5rem' }}>
-              Safe: <code>useEffect</code> only runs on client. Try resizing the window!
+              Safe: <code>useEffect</code> only runs on client.
             </p>
           </div>
         </div>
@@ -148,9 +146,8 @@ function Component() {
         <div className="demo-container">
           <div className="demo-box broken">
             <div className="demo-box-title">
-              ❌ Broken Example
+              ❌ Broken Pattern
             </div>
-            <RandomBroken />
             <div className="code-block" style={{ marginTop: '1rem' }}>
               <code>
 {`// BAD: Random value during render
@@ -168,9 +165,8 @@ function Component() {
 
           <div className="demo-box fixed">
             <div className="demo-box-title">
-              ✅ Fixed Example
+              ✅ Fixed Pattern
             </div>
-            <RandomFixed />
             <div className="code-block" style={{ marginTop: '1rem' }}>
               <code>
 {`// GOOD: Generate random values on client only
@@ -203,9 +199,8 @@ function Component() {
         <div className="demo-container">
           <div className="demo-box broken">
             <div className="demo-box-title">
-              ❌ Broken Example
+              ❌ Broken Pattern
             </div>
-            <LocalStorageBroken />
             <div className="code-block" style={{ marginTop: '1rem' }}>
               <code>
 {`// BAD: Reading localStorage during render
@@ -223,9 +218,8 @@ function Component() {
 
           <div className="demo-box fixed">
             <div className="demo-box-title">
-              ✅ Fixed Example
+              ✅ Fixed Pattern
             </div>
-            <LocalStorageFixed />
             <div className="code-block" style={{ marginTop: '1rem' }}>
               <code>
 {`// GOOD: Read localStorage in useEffect

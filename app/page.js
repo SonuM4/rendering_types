@@ -1,142 +1,97 @@
 import Link from 'next/link';
+import FlowDiagram, { requestLifecycleSteps, csrSteps, ssrSteps } from '../components/FlowDiagram';
 
 export default function Home() {
   return (
     <div className="page">
-      <h1 className="page-title">Understanding Next.js Rendering</h1>
+      <h1 className="page-title">The Lifecycle of a Web Request</h1>
       <p className="page-subtitle">
-        A hands-on guide to CSR, SSR, Hydration, Streaming, and React Server Components
+        Understanding what happens from the moment you hit Enter to seeing a page on screen
       </p>
 
       <div className="card">
-        <h2 className="card-title">What is Rendering?</h2>
+        <h2 className="card-title">Every Click Starts a Journey</h2>
         <p>
-          Rendering is the process of converting your React components into HTML that
-          browsers can display. Next.js gives you multiple ways to render your pages,
-          each with different trade-offs.
+          When you visit a website, a complex chain of events unfolds in milliseconds.
+          Understanding this journey helps you build faster, more reliable web applications
+          and debug issues when things go wrong.
         </p>
       </div>
 
-      <h2 style={{ marginTop: '2rem', marginBottom: '1rem' }}>CSR vs SSR Flow</h2>
+      <h2 style={{ marginTop: '2rem', marginBottom: '1rem' }}>The Request Lifecycle</h2>
+      <p style={{ color: 'var(--text-muted)', marginBottom: '1rem' }}>
+        This is what happens every time you navigate to a webpage, regardless of the technology behind it.
+      </p>
 
-      <div className="demo-container">
-        <div className="demo-box">
-          <h3 className="demo-box-title">Client-Side Rendering (CSR)</h3>
-          <div className="diagram" style={{ flexDirection: 'column', gap: '0.5rem' }}>
-            <div className="diagram-step">
-              <div className="diagram-step-number">1</div>
-              <div>Browser requests page</div>
-            </div>
-            <div className="diagram-arrow">↓</div>
-            <div className="diagram-step">
-              <div className="diagram-step-number">2</div>
-              <div>Server sends empty HTML + JS bundle</div>
-            </div>
-            <div className="diagram-arrow">↓</div>
-            <div className="diagram-step">
-              <div className="diagram-step-number">3</div>
-              <div>JS downloads and executes</div>
-            </div>
-            <div className="diagram-arrow">↓</div>
-            <div className="diagram-step">
-              <div className="diagram-step-number">4</div>
-              <div>Content appears (after delay)</div>
-            </div>
-          </div>
-        </div>
+      <FlowDiagram
+        title="From URL to Rendered Page"
+        steps={requestLifecycleSteps}
+      />
 
-        <div className="demo-box">
-          <h3 className="demo-box-title">Server-Side Rendering (SSR)</h3>
-          <div className="diagram" style={{ flexDirection: 'column', gap: '0.5rem' }}>
-            <div className="diagram-step">
-              <div className="diagram-step-number">1</div>
-              <div>Browser requests page</div>
-            </div>
-            <div className="diagram-arrow">↓</div>
-            <div className="diagram-step">
-              <div className="diagram-step-number">2</div>
-              <div>Server renders HTML with content</div>
-            </div>
-            <div className="diagram-arrow">↓</div>
-            <div className="diagram-step">
-              <div className="diagram-step-number">3</div>
-              <div>Content visible immediately</div>
-            </div>
-            <div className="diagram-arrow">↓</div>
-            <div className="diagram-step">
-              <div className="diagram-step-number">4</div>
-              <div>JS hydrates for interactivity</div>
-            </div>
-          </div>
-        </div>
+      <div className="card" style={{ marginTop: '2rem' }}>
+        <h2 className="card-title">Where CSR and SSR Differ</h2>
+        <p>
+          The lifecycle above is universal. But step 3 (server processing) and steps 4-5
+          (parsing, rendering, interactivity) play out very differently depending on
+          whether your app uses Client-Side Rendering or Server-Side Rendering.
+          This determines what's "on the wire" and ultimately what users experience.
+        </p>
       </div>
 
-      <h2 style={{ marginTop: '2rem', marginBottom: '1rem' }}>Quick Comparison</h2>
+      <h2 style={{ marginTop: '2rem', marginBottom: '1rem' }}>Two Approaches to Rendering</h2>
+
+      <div className="demo-container">
+        <FlowDiagram
+          title="Client-Side Rendering (CSR)"
+          steps={csrSteps}
+        />
+        <FlowDiagram
+          title="Server-Side Rendering (SSR)"
+          steps={ssrSteps}
+        />
+      </div>
+
+      <h2 style={{ marginTop: '2rem', marginBottom: '1rem' }}>The Trade-offs</h2>
 
       <table className="comparison-table">
         <thead>
           <tr>
-            <th>Aspect</th>
+            <th>What Users Experience</th>
             <th>CSR</th>
             <th>SSR</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>Initial Load</td>
-            <td>Slower (blank page first)</td>
-            <td>Faster (content visible immediately)</td>
+            <td>Time to first content</td>
+            <td>Slower - must wait for JS to download and execute</td>
+            <td>Faster - HTML arrives ready to display</td>
           </tr>
           <tr>
-            <td>SEO</td>
-            <td>Poor (crawlers see empty page)</td>
-            <td>Great (full HTML available)</td>
+            <td>Time to interactive</td>
+            <td>Same as first content - no hydration gap</td>
+            <td>Delayed - must wait for hydration after content shows</td>
           </tr>
           <tr>
-            <td>Server Load</td>
-            <td>Lower (client does the work)</td>
-            <td>Higher (server renders each request)</td>
+            <td>Subsequent navigation</td>
+            <td>Fast - no server round-trip needed</td>
+            <td>Varies - may need server for each page</td>
           </tr>
           <tr>
-            <td>Best For</td>
-            <td>Dashboards, authenticated areas</td>
-            <td>Public pages, landing pages, blogs</td>
+            <td>Works without JavaScript</td>
+            <td>No - blank page without JS</td>
+            <td>Partially - content visible, but not interactive</td>
           </tr>
         </tbody>
       </table>
 
-      <h2 style={{ marginTop: '2rem', marginBottom: '1rem' }}>Explore the Demos</h2>
-
-      <div className="feature-grid">
-        <Link href="/csr" className="feature-card">
-          <h3>CSR Demo →</h3>
-          <p>See how client-side rendering works with loading states and delayed content.</p>
+      <div style={{ marginTop: '2rem', textAlign: 'center' }}>
+        <Link href="/csr" className="btn">
+          View Live Demos →
         </Link>
-
-        <Link href="/ssr" className="feature-card">
-          <h3>SSR Demo →</h3>
-          <p>Experience server-rendered content that appears instantly in your browser.</p>
-        </Link>
-
-        <Link href="/hydration" className="feature-card">
-          <h3>What is Hydration? →</h3>
-          <p>Understand how React "hydrates" server-rendered HTML to make it interactive.</p>
-        </Link>
-
-        <Link href="/hydration-issues" className="feature-card">
-          <h3>Hydration Issues →</h3>
-          <p>Common hydration errors and how to fix them with side-by-side examples.</p>
-        </Link>
-
-        <Link href="/streaming" className="feature-card">
-          <h3>Streaming SSR →</h3>
-          <p>Watch React 18's streaming in action with Suspense boundaries and progressive loading.</p>
-        </Link>
-
-        <Link href="/rsc" className="feature-card">
-          <h3>Server Components →</h3>
-          <p>Understand React Server Components: what runs where and why it matters.</p>
-        </Link>
+        <p style={{ color: 'var(--text-muted)', fontSize: '0.875rem', marginTop: '0.75rem' }}>
+          Use navigation above to explore CSR, SSR, Hydration, Streaming, and RSC demos
+        </p>
       </div>
     </div>
   );
