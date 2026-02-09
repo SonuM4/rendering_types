@@ -1,7 +1,14 @@
+// FlowDiagram Component
+// Displays a visual flow diagram with expandable steps
+// Used to show the lifecycle of web requests, CSR, and SSR processes
+// This is a Client Component because steps can be clicked to expand/collapse
+
 'use client';
 
 import { useState } from 'react';
 
+// Individual step within a flow diagram that can be expanded for more details
+// Each step shows a number, title, and optional expandable details
 function FlowStep({ step, isExpanded, onToggle }) {
   return (
     <>
@@ -47,9 +54,13 @@ function FlowStep({ step, isExpanded, onToggle }) {
   );
 }
 
+// Main FlowDiagram component that renders a series of sequential steps
+// Steps are connected with arrows and can be clicked to reveal more information
 export default function FlowDiagram({ title, steps, variant }) {
+  // Track which steps are currently expanded (using Set for efficient lookups)
   const [expandedSteps, setExpandedSteps] = useState(new Set());
 
+  // Toggle a step's expanded state (add or remove from the Set)
   const toggleStep = (index) => {
     setExpandedSteps(prev => {
       const next = new Set(prev);
@@ -84,7 +95,13 @@ export default function FlowDiagram({ title, steps, variant }) {
   );
 }
 
+// ============================================================================
+// Flow Diagram Data Definitions
+// ============================================================================
+
 // Request Lifecycle - The fundamental flow of any web request
+// This is universal across all web applications, regardless of rendering approach
+// Shows the journey from URL to rendered page
 export const requestLifecycleSteps = [
   {
     number: 1,
@@ -118,7 +135,9 @@ export const requestLifecycleSteps = [
   }
 ];
 
-// CSR - What happens at each stage
+// CSR Flow - Client-Side Rendering specific lifecycle
+// Shows how CSR apps send minimal HTML and build the UI in the browser
+// Key characteristic: JavaScript must execute before any content appears
 export const csrSteps = [
   {
     number: 1,
@@ -152,7 +171,9 @@ export const csrSteps = [
   }
 ];
 
-// SSR - What happens at each stage
+// SSR Flow - Server-Side Rendering specific lifecycle
+// Shows how SSR apps generate complete HTML on the server
+// Key characteristic: Content is visible immediately, but needs hydration for interactivity
 export const ssrSteps = [
   {
     number: 1,

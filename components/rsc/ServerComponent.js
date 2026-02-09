@@ -1,25 +1,42 @@
-// This is a Server Component (no 'use client' directive)
-// It can:
-// - Access server-only resources (databases, file system)
-// - Keep sensitive data on the server
-// - Reduce client bundle size
+// Server Component Demo
+// ======================
+// This is a Server Component (NO 'use client' directive)
+// In Next.js App Router, components are Server Components by default
+// This means the component code ONLY runs on the server, never in the browser
+//
+// Server Component Capabilities:
+// - Access server-only resources (databases, file system, environment variables)
+// - Keep sensitive data on the server (API keys, secrets, tokens)
+// - Reduce client bundle size (component code is NOT sent to browser)
+// - Use async/await directly without useEffect
+// - Directly import and use server-side libraries
+//
+// Key Advantage: Zero JavaScript sent to the client for this component
+// Only the rendered HTML output is sent to the browser
 
-// Simulated server-only data access
+// Simulated server-only data access function
+// This represents what you might do with a real database or API call
 async function getSecretData() {
-  // This could be a database query, file read, or secret API call
-  // The code and data NEVER go to the client
+  // IMPORTANT: This API key is completely safe here!
+  // Since this is a Server Component, this code never reaches the browser
+  // Users cannot see this key in DevTools or view source
   const SECRET_API_KEY = 'sk_live_abc123...'; // Safe! Never sent to browser
 
+  // Simulate an async database query or API call
   await new Promise(r => setTimeout(r, 100));
 
+  // Return data that will be used to render the component
   return {
     data: 'Sensitive server data',
     timestamp: new Date().toISOString(),
-    // In real app: result of DB query using SECRET_API_KEY
+    // In a real app: const result = await db.query('SELECT * FROM users WHERE api_key = ?', [SECRET_API_KEY])
   };
 }
 
+// Async Server Component - can await promises directly in the component body
+// This is NOT possible in Client Components (they can't be async)
 export default async function ServerOnlyDemo() {
+  // Fetch data directly without useEffect - one of the key benefits of Server Components
   const data = await getSecretData();
 
   return (

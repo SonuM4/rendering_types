@@ -1,8 +1,15 @@
+// Accordion Component
+// A collapsible content container that shows/hides content on click
+// This is a Client Component because it needs interactive state (useState)
+
 'use client';
 
 import { useState } from 'react';
 
+// Interactive accordion that can expand/collapse to show/hide content
+// Used throughout the app to organize content into expandable sections
 export default function Accordion({ title, children, defaultOpen = false }) {
+  // Track whether the accordion is currently expanded or collapsed
   const [isOpen, setIsOpen] = useState(defaultOpen);
 
   return (
@@ -40,15 +47,20 @@ export default function Accordion({ title, children, defaultOpen = false }) {
   );
 }
 
-// AccordionGroup can be used to have only one open at a time
+// AccordionGroup Component
+// Wrapper for multiple accordions that can optionally enforce single-open behavior
+// Currently supports multiple open accordions by default
 export function AccordionGroup({ children, allowMultiple = true }) {
+  // Track which accordion is currently open (for single-open mode)
   const [openIndex, setOpenIndex] = useState(null);
 
+  // If multiple accordions can be open simultaneously, just render as a container
   if (allowMultiple) {
     return <div className="accordion-group">{children}</div>;
   }
 
   // For single-open mode, we'd need to clone children and pass state
-  // For now, just render children as-is
+  // This would ensure only one accordion is open at a time
+  // Currently simplified to just render children as-is
   return <div className="accordion-group">{children}</div>;
 }
